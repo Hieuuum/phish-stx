@@ -31,6 +31,13 @@ download_nltk_data()
 def load_pipeline():
     with open('spam_classifier_pipeline.pkl', 'rb') as f:
         artifacts = pickle.load(f)
+    
+    # --- PATCH FOR VERSION MISMATCH ---
+    # If the scaler was trained on an old sklearn version, it might miss 'clip'
+    scaler_obj = artifacts["scaler"]
+    if not hasattr(scaler_obj, "clip"):
+        scaler_obj.clip = False
+    
     return artifacts
 
 data = load_pipeline()
