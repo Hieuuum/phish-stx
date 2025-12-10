@@ -9,6 +9,7 @@ from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
 from scipy.sparse import hstack, csr_matrix
 from bs4 import BeautifulSoup
+from sklearn.preprocessing import MaxAbsScaler
 
 # --- 1. SETUP & CONFIG ---
 st.set_page_config(page_title="Advanced Spam Detector", page_icon="🛡️")
@@ -36,7 +37,7 @@ def load_pipeline():
 data = load_pipeline()
 model = data["model"]
 tfidf = data["tfidf"]
-scaler = data["scaler"]
+scaler = MaxAbsScaler()
 rare_words = data["rare_words"]
 spam_likelihood_dict = data["spam_likelihood_dict"]
 
