@@ -1,10 +1,7 @@
 streamlit
 pandas
-scikit-learn
+scikit-learn==1.0.2
 nltk
 scipy
 lightgbm
 bs4
-pickle
-re
-string

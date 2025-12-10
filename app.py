@@ -9,7 +9,6 @@ from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
 from scipy.sparse import hstack, csr_matrix
 from bs4 import BeautifulSoup
-from sklearn.preprocessing import MaxAbsScaler
 
 # --- 1. SETUP & CONFIG ---
 st.set_page_config(page_title="Advanced Spam Detector", page_icon="🛡️")
@@ -37,7 +36,7 @@ def load_pipeline():
 data = load_pipeline()
 model = data["model"]
 tfidf = data["tfidf"]
-scaler = MaxAbsScaler()
+scaler = data["scaler"]
 rare_words = data["rare_words"]
 spam_likelihood_dict = data["spam_likelihood_dict"]
 
@@ -161,7 +160,7 @@ if st.button("Analyze Email"):
                 # E. Scale Numeric Features
                 # Note: Convert to sparse matrix before scaling to match training flow
                 numeric_sparse = csr_matrix(numeric_df.values)
-                numeric_scaled = scaler.fit_transform(numeric_sparse)
+                numeric_scaled = scaler.transform(numeric_sparse)
                 
                 # F. Combine Features (Hstack)
                 X_final = hstack([tfidf_vector, numeric_scaled])
