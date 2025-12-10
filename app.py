@@ -160,7 +160,7 @@ if st.button("Analyze Email"):
                 # E. Scale Numeric Features
                 # Note: Convert to sparse matrix before scaling to match training flow
                 numeric_sparse = csr_matrix(numeric_df.values)
-                numeric_scaled = scaler.transform(numeric_sparse)
+                numeric_scaled = scaler.fit_transform(numeric_sparse)
                 
                 # F. Combine Features (Hstack)
                 X_final = hstack([tfidf_vector, numeric_scaled])
